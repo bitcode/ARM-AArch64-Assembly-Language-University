@@ -1,0 +1,379 @@
+# ARM AArch64 Assembly Language University - Course Manifest
+# This file provides complete course structure and metadata for LLM systems
+
+course_info:
+  name: "ARM AArch64 Assembly Language University"
+  version: "1.0.0"
+  description: "Comprehensive 12-week university-level course for mastering ARM AArch64 assembly language programming"
+  duration: "12 weeks"
+  difficulty: "University level"
+  prerequisites:
+    - "Basic programming experience (any language)"
+    - "Computer science fundamentals"
+    - "Understanding of basic computer architecture concepts"
+
+learning_philosophy:
+  approach: "Guided discovery learning"
+  llm_role: "Research assistant, not solution provider"
+  methodology: "DREAM (Define, Research, Experiment, Analyze, Master)"
+  emphasis:
+    - "Hands-on exploration"
+    - "ARM manual navigation"
+    - "Systematic debugging"
+    - "Concept integration"
+
+directory_structure:
+  modules:
+    path: "modules/"
+    description: "8 core learning modules with progressive complexity"
+    contents:
+      - "Module README files with learning objectives"
+      - "Exercise files following naming convention"
+      - "Module-specific resources and examples"
+  
+  tools:
+    path: "tools/"
+    description: "Development environment setup and utilities"
+    contents:
+      - "Platform-specific setup scripts"
+      - "Build automation tools"
+      - "Testing framework"
+      - "Debugging utilities"
+  
+  resources:
+    path: "resources/"
+    description: "Reference materials and learning aids"
+    contents:
+      - "Quick reference guides"
+      - "ARM manual navigation guides"
+      - "Debugging resources"
+      - "Cheat sheets and glossary"
+  
+  llm_integration:
+    path: "llm-integration/"
+    description: "LLM research assistant optimization files"
+    contents:
+      - "Course context files"
+      - "Prompt templates"
+      - "DREAM methodology guides"
+      - "Research strategies"
+  
+  assessment:
+    path: "assessment/"
+    description: "Progress tracking and evaluation framework"
+    contents:
+      - "Module assessments"
+      - "Skill competency evaluations"
+      - "Project rubrics"
+      - "Self-assessment tools"
+
+modules:
+  m1_foundation:
+    name: "Foundation & Setup"
+    duration: "Weeks 1-2"
+    difficulty: "Beginner to Intermediate"
+    learning_objectives:
+      - "Understand ARM AArch64 architecture basics"
+      - "Set up development environment"
+      - "Write first assembly programs"
+      - "Navigate ARM documentation"
+    key_concepts:
+      - "AArch64 vs AArch32"
+      - "Register overview"
+      - "Development workflow"
+      - "Assembly language basics"
+    arm_manual_sections:
+      - "A1.1: About the AArch64 architecture"
+      - "A1.2: AArch64 architectural concepts"
+      - "B1.1: The AArch64 application level view"
+    exercises:
+      - "1.1-hello-beginner.s"
+      - "1.1-toolchain-beginner.s"
+      - "1.2-structure-beginner.s"
+      - "1.2-comments-beginner.s"
+      - "1.2-labels-intermediate.s"
+      - "1.3-move-beginner.s"
+      - "1.3-arithmetic-beginner.s"
+      - "1.3-registers-intermediate.s"
+
+  m2_data_registers:
+    name: "Data & Registers"
+    duration: "Weeks 2-3"
+    difficulty: "Beginner to Intermediate"
+    learning_objectives:
+      - "Master register usage patterns"
+      - "Understand data types and representations"
+      - "Implement data manipulation operations"
+      - "Apply memory addressing modes"
+    key_concepts:
+      - "Register allocation strategies"
+      - "Data type representations"
+      - "Memory addressing modes"
+      - "Instruction encoding"
+    arm_manual_sections:
+      - "B1.2: AArch64 application level registers"
+      - "C1.2: Data types and alignment"
+      - "C2.1: Instruction encoding overview"
+
+  m3_control_flow:
+    name: "Control Flow"
+    duration: "Weeks 4-5"
+    difficulty: "Intermediate"
+    learning_objectives:
+      - "Implement conditional execution"
+      - "Design loop structures"
+      - "Master branching patterns"
+      - "Optimize control flow"
+    key_concepts:
+      - "Conditional branching"
+      - "Loop optimization"
+      - "Branch prediction"
+      - "Control flow patterns"
+    arm_manual_sections:
+      - "C3.1: Branch instructions"
+      - "C3.2: Conditional execution"
+      - "C1.3: Condition codes and flags"
+
+  m4_functions_stack:
+    name: "Functions & Stack"
+    duration: "Weeks 6-7"
+    difficulty: "Intermediate to Advanced"
+    learning_objectives:
+      - "Implement function calls correctly"
+      - "Manage stack frames effectively"
+      - "Apply calling conventions"
+      - "Handle recursion and parameters"
+    key_concepts:
+      - "Calling conventions"
+      - "Stack frame management"
+      - "Parameter passing"
+      - "Recursion patterns"
+    arm_manual_sections:
+      - "C5: Procedure call standard"
+      - "B1.3: The stack pointer"
+      - "C3.3: Load and store instructions"
+
+  m5_memory_pointers:
+    name: "Memory & Pointers"
+    duration: "Weeks 8-9"
+    difficulty: "Intermediate to Advanced"
+    learning_objectives:
+      - "Master memory addressing modes"
+      - "Implement pointer arithmetic"
+      - "Design data structures"
+      - "Understand memory models"
+    key_concepts:
+      - "Memory addressing modes"
+      - "Pointer arithmetic"
+      - "Data structure implementation"
+      - "Memory alignment"
+    arm_manual_sections:
+      - "B2: The AArch64 application level memory model"
+      - "C3.3: Load and store instructions"
+      - "C1.4: Addressing modes"
+
+  m6_system_integration:
+    name: "System Integration"
+    duration: "Week 10"
+    difficulty: "Advanced"
+    learning_objectives:
+      - "Master system call interface"
+      - "Understand OS interaction"
+      - "Apply debugging techniques"
+      - "Handle errors systematically"
+    key_concepts:
+      - "System call mechanisms"
+      - "Exception handling"
+      - "Privilege levels"
+      - "Debugging strategies"
+    arm_manual_sections:
+      - "C6: System instructions"
+      - "D1.1: About the AArch64 system level"
+      - "A1.3: Security state and exception levels"
+
+  m7_optimization:
+    name: "Optimization"
+    duration: "Week 11"
+    difficulty: "Advanced to Expert"
+    learning_objectives:
+      - "Analyze and improve performance"
+      - "Utilize SIMD instructions"
+      - "Apply optimization strategies"
+      - "Measure and benchmark code"
+    key_concepts:
+      - "Performance analysis"
+      - "SIMD programming"
+      - "Optimization techniques"
+      - "Benchmarking methods"
+    arm_manual_sections:
+      - "C7: Advanced SIMD and floating-point instructions"
+      - "B2.2: Memory ordering"
+      - "C2.2: Instruction encoding details"
+
+  m8_applications:
+    name: "Applications"
+    duration: "Week 12"
+    difficulty: "Expert"
+    learning_objectives:
+      - "Develop complete applications"
+      - "Integrate multiple concepts"
+      - "Create portfolio projects"
+      - "Demonstrate professional competency"
+    key_concepts:
+      - "Project architecture"
+      - "Integration patterns"
+      - "Professional development"
+      - "Portfolio presentation"
+    arm_manual_sections:
+      - "Cross-reference multiple sections"
+      - "Focus on integration patterns"
+      - "Study complete examples"
+
+exercise_naming_convention:
+  pattern: "module-lesson.sublesson-topic-difficulty.s"
+  components:
+    module: "1-8 (module number)"
+    lesson: "1-9 (lesson within module)"
+    sublesson: "1-9 (sublesson within lesson)"
+    topic: "descriptive-name"
+    difficulty: "beginner|intermediate|advanced|expert"
+  examples:
+    - "1.1-hello-beginner.s"
+    - "3.2-loops-intermediate.s"
+    - "7.1-simd-advanced.s"
+
+difficulty_levels:
+  beginner:
+    description: "Introduction to new concepts"
+    characteristics:
+      - "Guided step-by-step instructions"
+      - "Basic concept application"
+      - "Minimal complexity"
+      - "Clear expected outcomes"
+  
+  intermediate:
+    description: "Applying concepts with moderate complexity"
+    characteristics:
+      - "Independent problem solving"
+      - "Concept combination"
+      - "Moderate complexity"
+      - "Multiple solution approaches"
+  
+  advanced:
+    description: "Complex implementations and optimizations"
+    characteristics:
+      - "Complex problem solving"
+      - "Optimization requirements"
+      - "Integration challenges"
+      - "Performance considerations"
+  
+  expert:
+    description: "Research-level challenges and open-ended problems"
+    characteristics:
+      - "Open-ended exploration"
+      - "Research methodology"
+      - "Innovation requirements"
+      - "Professional-level complexity"
+
+llm_integration:
+  role: "Research assistant and learning guide"
+  approach: "Socratic questioning and guided discovery"
+  constraints:
+    - "No direct solution provision"
+    - "Guide to documentation and resources"
+    - "Encourage experimentation"
+    - "Foster independent thinking"
+  
+  effective_prompts:
+    architecture_understanding:
+      - "Guide me through ARM manual section X.Y to understand [concept]"
+      - "Help me compare ARM AArch64 to [other architecture] for [specific aspect]"
+      - "What questions should I ask myself about [ARM concept]?"
+    
+    code_analysis:
+      - "Help me develop a systematic approach to analyze this ARM code"
+      - "Guide me through debugging this assembly program"
+      - "What ARM manual sections relate to this code pattern?"
+    
+    concept_exploration:
+      - "What connections exist between [concept A] and [concept B]?"
+      - "How does [ARM feature] relate to [programming concept]?"
+      - "What experiments could deepen my understanding of [topic]?"
+
+assessment_framework:
+  types:
+    knowledge: "Understanding of ARM architecture concepts"
+    skills: "Practical programming abilities"
+    research: "Effective use of documentation and LLM"
+    projects: "Integration and application of concepts"
+  
+  competency_levels:
+    beginner: "Basic concept recognition and guided implementation"
+    intermediate: "Independent application and problem solving"
+    advanced: "Complex optimization and integration"
+    expert: "Innovation and teaching capability"
+  
+  milestones:
+    foundation: "Modules 1-2 completed"
+    programming: "Modules 3-4 completed"
+    advanced: "Modules 5-6 completed"
+    mastery: "Modules 7-8 completed"
+
+development_environment:
+  required_tools:
+    - "ARM AArch64 cross-compilation toolchain"
+    - "QEMU user-mode emulation"
+    - "Text editor with assembly syntax highlighting"
+    - "Basic shell environment"
+  
+  recommended_tools:
+    - "GDB with ARM support"
+    - "Hex editor for binary analysis"
+    - "Performance profiling tools"
+    - "IDE with LLM chat integration"
+  
+  setup_scripts:
+    linux: "tools/setup/setup.sh"
+    macos: "tools/setup/setup.sh"
+    windows: "tools/setup/setup.ps1"
+
+arm_manual_integration:
+  location: "Aarch64-Architecture-Reference-Manual-for-A-profile/"
+  navigation_guide: "resources/arm-manual-guide/navigation.md"
+  module_mappings: "resources/arm-manual-guide/module-sections.md"
+  
+  key_sections:
+    introduction: "Part A: Introduction and Overview"
+    application: "Part B: Application Level Architecture"
+    instructions: "Part C: AArch64 Instruction Set"
+    system: "Part D: System Level Architecture"
+
+success_criteria:
+  course_completion:
+    - "Complete all 8 modules with passing assessments"
+    - "Demonstrate competency in all core skill areas"
+    - "Build portfolio of progressively complex projects"
+    - "Show mastery of research and documentation skills"
+    - "Integrate knowledge across modules effectively"
+  
+  professional_readiness:
+    - "Write efficient ARM AArch64 assembly code"
+    - "Debug complex assembly programs systematically"
+    - "Navigate ARM documentation independently"
+    - "Optimize code for performance and maintainability"
+    - "Integrate assembly with higher-level languages"
+    - "Apply assembly knowledge to real-world problems"
+
+# Metadata for LLM systems
+llm_context_files:
+  course_overview: "llm-integration/course-context.md"
+  research_prompts: "llm-integration/research-prompts.md"
+  dream_methodology: "llm-integration/dream-methodology.md"
+  documentation_navigation: "llm-integration/documentation-navigation.md"
+
+# Version and maintenance
+version_info:
+  created: "2025-06-15"
+  last_updated: "2025-06-15"
+  maintainer: "ARM Assembly University Team"
+  license: "Educational Use"

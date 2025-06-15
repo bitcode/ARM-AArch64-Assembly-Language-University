@@ -1,0 +1,252 @@
+name: 👥 Study Group
+description: Organize study groups and collaborative learning sessions
+title: "[STUDY GROUP] "
+labels: ["study-group", "community", "learning"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Organize or join study groups to learn ARM assembly together! Collaborative learning makes complex topics easier to understand.
+        
+  - type: dropdown
+    id: group-type
+    attributes:
+      label: Study Group Type
+      description: What type of study group are you organizing/looking for?
+      options:
+        - New Study Group (organizing)
+        - Looking to Join Group
+        - One-time Study Session
+        - Regular Weekly Meetings
+        - Module-specific Focus Group
+        - Project Collaboration
+        - Exam/Assessment Prep
+        - Peer Review Session
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target-module
+    attributes:
+      label: Focus Module/Topic
+      description: Which module or topic will the group focus on?
+      options:
+        - M1 - Foundation
+        - M2 - Data & Registers
+        - M3 - Basic Instruction Set
+        - M4 - Memory & Data Structures
+        - M5 - Control Flow & Structure
+        - M6 - Advanced Features
+        - M7 - Optimization & Debugging
+        - Multiple Modules
+        - General Course Review
+        - Specific Topic (describe below)
+        - Open to Group Decision
+    validations:
+      required: true
+
+  - type: dropdown
+    id: experience-level
+    attributes:
+      label: Target Experience Level
+      description: What experience level is this group aimed at?
+      options:
+        - Complete Beginners
+        - Beginner Programmers
+        - Intermediate Programmers
+        - Advanced Programmers
+        - Mixed Experience Levels
+        - Any Level Welcome
+    validations:
+      required: true
+
+  - type: dropdown
+    id: meeting-format
+    attributes:
+      label: Preferred Meeting Format
+      description: How would you like the study group to meet?
+      options:
+        - Video Call (Zoom, Teams, etc.)
+        - Voice Only (Discord, etc.)
+        - Text-based (Discord, Slack)
+        - In-person (specify location)
+        - Hybrid (online + in-person)
+        - Asynchronous (forum-style)
+        - Flexible/To be decided
+    validations:
+      required: true
+
+  - type: input
+    id: timezone
+    attributes:
+      label: Time Zone
+      description: What time zone are you in? (helps coordinate meetings)
+      placeholder: "e.g., EST, PST, UTC+2, etc."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: schedule-preference
+    attributes:
+      label: Schedule Preference
+      description: When would you prefer to meet?
+      options:
+        - Weekday Mornings
+        - Weekday Afternoons
+        - Weekday Evenings
+        - Weekend Mornings
+        - Weekend Afternoons
+        - Weekend Evenings
+        - Flexible Scheduling
+        - To be determined by group
+    validations:
+      required: false
+
+  - type: dropdown
+    id: group-size
+    attributes:
+      label: Preferred Group Size
+      description: How many people would be ideal for this study group?
+      options:
+        - 2-3 people (small, intimate)
+        - 4-6 people (medium group)
+        - 7-10 people (larger group)
+        - 10+ people (open to all)
+        - No preference
+    validations:
+      required: false
+
+  - type: textarea
+    id: group-description
+    attributes:
+      label: Study Group Description
+      description: Describe what you want to accomplish in this study group
+      placeholder: |
+        - Goals and objectives
+        - What topics to cover
+        - How you'd like to structure sessions
+        - What you hope to achieve together
+    validations:
+      required: true
+
+  - type: textarea
+    id: session-structure
+    attributes:
+      label: Proposed Session Structure
+      description: How would you like to structure the study sessions?
+      placeholder: |
+        Example:
+        - 10 min: Review previous session
+        - 20 min: Work through new material together
+        - 20 min: Practice exercises/coding
+        - 10 min: Q&A and plan next session
+    validations:
+      required: false
+
+  - type: textarea
+    id: specific-topics
+    attributes:
+      label: Specific Topics/Questions
+      description: Any specific topics, exercises, or questions you want to focus on?
+      placeholder: |
+        - Struggling with register usage in Module 2
+        - Want to practice memory addressing
+        - Need help with debugging techniques
+        - Working on optimization strategies
+    validations:
+      required: false
+
+  - type: dropdown
+    id: commitment-level
+    attributes:
+      label: Commitment Level
+      description: What level of commitment are you looking for?
+      options:
+        - Casual (drop in when available)
+        - Regular (weekly attendance expected)
+        - Intensive (multiple sessions per week)
+        - Short-term (few sessions to cover specific topic)
+        - Long-term (throughout entire course)
+        - Project-based (until project completion)
+    validations:
+      required: false
+
+  - type: textarea
+    id: prerequisites
+    attributes:
+      label: Prerequisites/Requirements
+      description: What should participants have completed or know before joining?
+      placeholder: |
+        - Completed Module X
+        - Basic understanding of Y
+        - Access to development environment
+        - Willingness to help others
+    validations:
+      required: false
+
+  - type: textarea
+    id: resources-tools
+    attributes:
+      label: Resources & Tools
+      description: What resources or tools will the group use?
+      placeholder: |
+        - Course materials
+        - Shared code repository
+        - Online whiteboard
+        - Screen sharing for debugging
+        - Collaborative documents
+    validations:
+      required: false
+
+  - type: dropdown
+    id: leadership-style
+    attributes:
+      label: Leadership Style
+      description: How would you like the group to be led?
+      options:
+        - I'll lead the sessions
+        - Looking for someone to lead
+        - Rotating leadership
+        - Collaborative (no single leader)
+        - Peer-to-peer learning
+        - Mentor-guided (if available)
+    validations:
+      required: false
+
+  - type: textarea
+    id: contact-info
+    attributes:
+      label: Contact Information
+      description: How should interested people contact you?
+      placeholder: |
+        - GitHub username: @yourusername
+        - Discord: username#1234
+        - Email: your.email@example.com
+        - Other platform: username
+        
+        Note: Only share contact info you're comfortable making public
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: Additional Notes
+      description: Any other information about the study group?
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: group-guidelines
+    attributes:
+      label: Study Group Guidelines
+      options:
+        - label: I commit to being respectful and supportive of all group members
+          required: true
+        - label: I understand this is a collaborative learning environment
+          required: true
+        - label: I'm willing to help others and ask for help when needed
+          required: true
+        - label: I'll communicate clearly about my availability and commitment
+          required: true

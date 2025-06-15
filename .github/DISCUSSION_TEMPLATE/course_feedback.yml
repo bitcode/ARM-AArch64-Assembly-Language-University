@@ -1,0 +1,207 @@
+name: 📝 Course Feedback
+description: Share feedback about the course content, structure, or learning experience
+title: "[FEEDBACK] "
+labels: ["feedback", "educational"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Your feedback helps us improve the course for all students. Thank you for taking the time to share your experience!
+        
+  - type: dropdown
+    id: feedback-category
+    attributes:
+      label: Feedback Category
+      description: What aspect of the course is your feedback about?
+      options:
+        - Overall Course Structure
+        - Module Content Quality
+        - Exercise Difficulty
+        - Learning Progression
+        - Documentation Clarity
+        - Code Examples
+        - Assessment Methods
+        - Technical Setup
+        - Course Pacing
+        - Real-World Relevance
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: specific-module
+    attributes:
+      label: Specific Module (if applicable)
+      description: Which module is your feedback about?
+      options:
+        - M1 - Foundation
+        - M2 - Data & Registers
+        - M3 - Basic Instruction Set
+        - M4 - Memory & Data Structures
+        - M5 - Control Flow & Structure
+        - M6 - Advanced Features
+        - M7 - Optimization & Debugging
+        - Multiple Modules
+        - Course-wide
+        - Not Module Specific
+    validations:
+      required: false
+
+  - type: dropdown
+    id: experience-level
+    attributes:
+      label: Your Experience Level
+      description: What's your background when you started this course?
+      options:
+        - Complete beginner (no programming experience)
+        - Beginner programmer (some high-level language experience)
+        - Intermediate programmer (experienced with high-level languages)
+        - Advanced programmer (some low-level experience)
+        - Expert (experienced with assembly/systems programming)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: completion-status
+    attributes:
+      label: Course Completion Status
+      description: How much of the course have you completed?
+      options:
+        - Just started (0-25%)
+        - In progress (25-50%)
+        - Mostly complete (50-75%)
+        - Nearly finished (75-95%)
+        - Completed (95-100%)
+        - Reviewing/Revisiting content
+    validations:
+      required: true
+
+  - type: textarea
+    id: positive-feedback
+    attributes:
+      label: What's Working Well
+      description: What aspects of the course do you find most helpful or enjoyable?
+      placeholder: |
+        - Clear explanations of...
+        - Helpful exercises that...
+        - Good progression from...
+        - Excellent examples of...
+    validations:
+      required: false
+
+  - type: textarea
+    id: improvement-areas
+    attributes:
+      label: Areas for Improvement
+      description: What could be better? What challenges have you encountered?
+      placeholder: |
+        - Confusing explanations of...
+        - Exercises that are too easy/hard...
+        - Missing coverage of...
+        - Unclear instructions for...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: difficulty-rating
+    attributes:
+      label: Overall Difficulty Rating
+      description: How would you rate the course difficulty?
+      options:
+        - Too easy
+        - Slightly too easy
+        - Just right
+        - Slightly too difficult
+        - Too difficult
+        - Varies significantly by module
+    validations:
+      required: false
+
+  - type: dropdown
+    id: pacing-rating
+    attributes:
+      label: Course Pacing
+      description: How do you find the pacing of the course?
+      options:
+        - Too slow
+        - Slightly too slow
+        - Just right
+        - Slightly too fast
+        - Too fast
+        - Inconsistent pacing
+    validations:
+      required: false
+
+  - type: textarea
+    id: learning-outcomes
+    attributes:
+      label: Learning Outcomes
+      description: What have you learned? How has this course helped you?
+      placeholder: |
+        - I now understand...
+        - I can now implement...
+        - This course helped me...
+        - I feel confident about...
+    validations:
+      required: false
+
+  - type: textarea
+    id: missing-content
+    attributes:
+      label: Missing Content
+      description: What topics or skills do you wish were covered?
+      placeholder: |
+        - More examples of...
+        - Better coverage of...
+        - Additional exercises on...
+        - Deeper dive into...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: recommendation-likelihood
+    attributes:
+      label: Recommendation Likelihood
+      description: How likely are you to recommend this course to others?
+      options:
+        - Very likely (9-10/10)
+        - Likely (7-8/10)
+        - Neutral (5-6/10)
+        - Unlikely (3-4/10)
+        - Very unlikely (1-2/10)
+    validations:
+      required: false
+
+  - type: textarea
+    id: target-audience
+    attributes:
+      label: Target Audience Feedback
+      description: Who do you think this course is best suited for?
+      placeholder: |
+        This course would be perfect for:
+        - Students with X background
+        - People interested in Y
+        - Those who want to learn Z
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-feedback
+    attributes:
+      label: Additional Comments
+      description: Any other feedback, suggestions, or thoughts?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: follow-up-interest
+    attributes:
+      label: Follow-up Interest
+      description: Would you be interested in follow-up discussions about your feedback?
+      options:
+        - Yes, I'd like to discuss this further
+        - Yes, but only if there are questions
+        - No, this feedback is sufficient
+        - I prefer to remain anonymous
+    validations:
+      required: false

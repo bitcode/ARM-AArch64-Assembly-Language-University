@@ -1,0 +1,165 @@
+name: ✨ Feature Request
+description: Suggest new features or improvements for the course
+title: "[FEATURE] "
+labels: ["enhancement", "needs-review"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a feature! Your ideas help make this course better for everyone.
+        
+  - type: dropdown
+    id: feature-category
+    attributes:
+      label: Feature Category
+      description: What type of feature are you requesting?
+      options:
+        - New Exercise/Project
+        - Course Content Enhancement
+        - Documentation Improvement
+        - Tooling/Build System
+        - Assessment/Testing
+        - Interactive Features
+        - Accessibility Improvement
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target-module
+    attributes:
+      label: Target Module
+      description: Which module would this feature benefit?
+      options:
+        - M1 - Foundation
+        - M2 - Data & Registers
+        - M3 - Basic Instruction Set
+        - M4 - Memory & Data Structures
+        - M5 - Control Flow & Structure
+        - M6 - Advanced Features
+        - M7 - Optimization & Debugging
+        - All Modules
+        - Course Infrastructure
+        - Not Module Specific
+    validations:
+      required: true
+
+  - type: dropdown
+    id: difficulty-level
+    attributes:
+      label: Target Difficulty Level
+      description: What skill level would this feature target?
+      options:
+        - Beginner
+        - Intermediate
+        - Advanced
+        - Expert
+        - All Levels
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: A clear and detailed description of the feature you'd like to see
+      placeholder: Describe your feature idea in detail...
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem-statement
+    attributes:
+      label: Problem Statement
+      description: What problem does this feature solve? What learning gap does it address?
+      placeholder: Explain the educational problem or need this feature addresses...
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like this feature to work?
+      placeholder: Describe your proposed implementation...
+    validations:
+      required: true
+
+  - type: textarea
+    id: learning-objectives
+    attributes:
+      label: Learning Objectives
+      description: What should students learn from this feature?
+      placeholder: |
+        - Students will be able to...
+        - Students will understand...
+        - Students will practice...
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Have you considered any alternative approaches?
+      placeholder: Describe any alternative solutions you've considered...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature to you?
+      options:
+        - Low (nice to have)
+        - Medium (would be helpful)
+        - High (significantly improves learning)
+        - Critical (essential for course completion)
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation-ideas
+    attributes:
+      label: Implementation Ideas
+      description: Any specific ideas about how this could be implemented?
+      placeholder: Technical implementation suggestions, file structure ideas, etc.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: contribution-willingness
+    attributes:
+      label: Contribution Willingness
+      description: Would you be willing to help implement this feature?
+      options:
+        - Yes, I can implement this myself
+        - Yes, I can help with implementation
+        - Yes, I can help with testing/review
+        - Yes, I can help with documentation
+        - No, but I can provide feedback
+        - No, I cannot contribute to implementation
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context, screenshots, or examples
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues to avoid duplicates
+          required: true
+        - label: This feature aligns with the educational goals of the course
+          required: true
+        - label: I have provided clear learning objectives or educational value
+          required: true

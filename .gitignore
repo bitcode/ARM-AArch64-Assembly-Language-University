@@ -1,0 +1,414 @@
+# =============================================================================
+# ARM Assembly Language Educational Project .gitignore
+# =============================================================================
+# This .gitignore is specifically designed for ARM assembly language educational
+# repositories, covering various development environments, toolchains, and
+# educational workflow artifacts.
+
+# =============================================================================
+# ASSEMBLY AND BUILD ARTIFACTS
+# =============================================================================
+# These files are generated during the assembly and linking process and should
+# not be tracked as they can be regenerated from source code.
+
+# Object files (compiled but not linked)
+*.o
+*.obj
+*.OBJ
+
+# Executable files (ARM/Linux executables)
+*.out
+*.exe
+*.elf
+*.axf
+*.bin
+*.hex
+*.img
+*.srec
+*.s19
+*.s28
+*.s37
+
+# Assembly listing files (human-readable assembly output)
+*.lst
+*.list
+*.listing
+*.LST
+
+# Map files (memory layout information)
+*.map
+*.MAP
+
+# Debug information files
+*.dwarf
+*.debug
+*.sym
+*.symbols
+
+# Linker script temporary files
+*.ld.tmp
+*.lds.tmp
+
+# Build directories
+build/
+Build/
+BUILD/
+obj/
+OBJ/
+output/
+Output/
+OUTPUT/
+bin/
+BIN/
+dist/
+DIST/
+
+# Make and build system artifacts
+*.d
+*.dep
+*.depend
+Makefile.bak
+makefile.bak
+
+# =============================================================================
+# DEVELOPMENT ENVIRONMENT FILES
+# =============================================================================
+# IDE and editor-specific files that contain personal preferences and should
+# not be shared across different development setups.
+
+# Visual Studio Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Keil µVision IDE
+*.uvproj
+*.uvopt
+*.uvgui.*
+*.uvguix.*
+*.bak
+*.dep
+*.crf
+*.d
+*.axf
+*.htm
+*.lnp
+*.lst
+*.map
+*.plg
+*.tra
+*.fed
+*.l1p
+*.l2p
+*.iex
+*.hex
+*.elf
+*.bin
+*.scvd
+*.Administrator
+
+# ARM Development Studio (DS-5/Arm DS)
+.metadata/
+.cproject
+.project
+.settings/
+*.launch
+*.prefs
+
+# IAR Embedded Workbench
+*.eww
+*.ewd
+*.ewp
+*.ewt
+*.dni
+*.wsdt
+*.dep
+*.mac
+Debug/
+Release/
+settings/
+
+# Eclipse CDT
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*~
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# =============================================================================
+# SYSTEM-SPECIFIC FILES
+# =============================================================================
+# Operating system generated files that should never be tracked.
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+.fuse_hidden*
+.Trash-*
+.nfs*
+
+# =============================================================================
+# EDUCATIONAL MATERIALS ARTIFACTS
+# =============================================================================
+# Files generated during educational activities that should not be tracked.
+
+# Student submission directories (if any)
+submissions/
+graded/
+feedback/
+
+# Student workspace directories (dual-zone structure)
+*/student-work/
+*/personal-notes/
+student-workspace/
+personal-workspace/
+
+# Temporary assessment files
+*.assessment
+*.grade
+*.feedback
+assessment-temp/
+grading-temp/
+
+# Generated documentation files
+docs/generated/
+documentation/auto/
+*.pdf.tmp
+*.docx.tmp
+
+# Log files from automated testing and grading
+*.log
+*.LOG
+test-results/
+test-output/
+grading-logs/
+validation-logs/
+
+# Temporary exercise files
+exercise-temp/
+temp-solutions/
+*.solution.tmp
+
+# Backup files from educational tools
+*.backup
+*.bkp
+*.orig
+
+# =============================================================================
+# COMMON DEVELOPMENT ARTIFACTS
+# =============================================================================
+# General development files that are commonly generated across different tools.
+
+# Node.js (for any web-based educational tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+package-lock.json
+yarn.lock
+
+# Python cache files (for any Python scripts/tools)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# General backup and temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*~
+.#*
+#*#
+
+# Archive files (unless specifically needed for course materials)
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# =============================================================================
+# ARM-SPECIFIC TOOLCHAIN FILES
+# =============================================================================
+# Files generated by ARM-specific development tools and cross-compilation.
+
+# GNU ARM Embedded Toolchain temporary files
+*.su
+*.i
+*.s.tmp
+*.ii
+*.s
+
+# Cross-compilation artifacts
+*-linux-gnueabihf
+*-none-eabi
+*-linux-gnu
+
+# OpenOCD (On-Chip Debugger) files
+*.cfg.bak
+openocd.log
+
+# SEGGER J-Link files
+*.jlink
+JLink.log
+JLinkLog.txt
+
+# ST-Link files
+*.stlink
+
+# GDB debugging session files
+.gdb_history
+gdb.txt
+*.gdb
+
+# Trace and profiling files
+*.trace
+*.prof
+*.perf
+
+# QEMU (ARM emulator) files
+*.qcow2
+*.img.tmp
+
+# ARM Compiler 6 (armclang) specific
+*.o.d
+*.axf.map
+
+# =============================================================================
+# COURSE-SPECIFIC EXCLUSIONS
+# =============================================================================
+# Files specific to this ARM Assembly Language University course structure.
+
+# Exclude auto-generated course materials (keep source materials)
+auto/
+generated/
+compiled-docs/
+
+# Temporary course validation files
+validation-temp/
+course-temp/
+
+# Analytics and tracking files (if any)
+analytics-data/
+tracking/
+*.analytics
+
+# Distribution build artifacts
+distribution/build/
+distribution/output/
+
+# =============================================================================
+# EXCEPTIONS (FILES TO KEEP)
+# =============================================================================
+# Important: Use ! to negate patterns and ensure important files are tracked.
+
+# Keep important configuration files
+!.gitignore
+!.gitattributes
+!.editorconfig
+
+# Keep course structure files
+!course-manifest.yaml
+!*/README.md
+!README.md
+
+# Keep example makefiles and build scripts
+!Makefile.example
+!build.sh.example
+!*.mk.example
+
+# Keep linker scripts (important for ARM development)
+!*.ld
+!*.lds
+!linker-scripts/
+
+# Keep startup files and important assembly sources
+!startup*.s
+!vector*.s
+!boot*.s
+
+# Keep educational documentation
+!docs/
+!documentation/
+!*.md
+!*.rst
+!*.txt
+
+# =============================================================================
+# END OF .gitignore
+# =============================================================================

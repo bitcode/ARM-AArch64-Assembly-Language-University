@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARM AArch64 Assembly Language University - Course Completion Certificate</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .certificate {
+            background: white;
+            width: 11in;
+            height: 8.5in;
+            padding: 60px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .certificate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(102, 126, 234, 0.05) 50%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .university-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        
+        .course-title {
+            font-size: 18px;
+            color: #667eea;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        
+        .certificate-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #34495e;
+            margin-bottom: 30px;
+        }
+        
+        .recipient-section {
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .presented-to {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .recipient-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .achievement-text {
+            font-size: 16px;
+            color: #34495e;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .competencies {
+            margin: 30px 0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .competencies-title {
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .competency-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .competency-item {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #34495e;
+            border-left: 4px solid #667eea;
+        }
+        
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .signature-block {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .signature-line {
+            border-bottom: 2px solid #34495e;
+            width: 200px;
+            margin: 0 auto 10px;
+        }
+        
+        .signature-title {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .date-section {
+            text-align: center;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .date-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .date-value {
+            font-size: 16px;
+            color: #34495e;
+            font-weight: 600;
+        }
+        
+        .certificate-id {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 10px;
+            color: #bdc3c7;
+            font-family: monospace;
+        }
+        
+        .border-decoration {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 3px solid #667eea;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+        
+        .corner-decoration {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #764ba2;
+        }
+        
+        .corner-decoration.top-left {
+            top: 30px;
+            left: 30px;
+            border-right: none;
+            border-bottom: none;
+        }
+        
+        .corner-decoration.top-right {
+            top: 30px;
+            right: 30px;
+            border-left: none;
+            border-bottom: none;
+        }
+        
+        .corner-decoration.bottom-left {
+            bottom: 30px;
+            left: 30px;
+            border-right: none;
+            border-top: none;
+        }
+        
+        .corner-decoration.bottom-right {
+            bottom: 30px;
+            right: 30px;
+            border-left: none;
+            border-top: none;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .certificate {
+                box-shadow: none;
+                border-radius: 0;
+                width: 100%;
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="border-decoration"></div>
+        <div class="corner-decoration top-left"></div>
+        <div class="corner-decoration top-right"></div>
+        <div class="corner-decoration bottom-left"></div>
+        <div class="corner-decoration bottom-right"></div>
+        
+        <div class="header">
+            <div class="university-name">ARM AArch64 Assembly Language University</div>
+            <div class="course-title">Professional Assembly Programming Course</div>
+            <div class="certificate-title">Certificate of Completion</div>
+        </div>
+        
+        <div class="recipient-section">
+            <div class="presented-to">This certifies that</div>
+            <div class="recipient-name">[STUDENT_NAME]</div>
+            <div class="achievement-text">
+                has successfully completed the comprehensive ARM AArch64 Assembly Language University course,
+                demonstrating mastery of assembly programming, ARM architecture, and professional development practices
+                through systematic study, hands-on programming, and real-world project development.
+            </div>
+        </div>
+        
+        <div class="competencies">
+            <div class="competencies-title">Demonstrated Competencies</div>
+            <div class="competency-grid">
+                <div class="competency-item">ARM AArch64 Architecture Mastery</div>
+                <div class="competency-item">Assembly Programming Proficiency</div>
+                <div class="competency-item">ARM Documentation Navigation</div>
+                <div class="competency-item">Systematic Debugging Skills</div>
+                <div class="competency-item">Performance Optimization Techniques</div>
+                <div class="competency-item">Professional Development Practices</div>
+                <div class="competency-item">SIMD/NEON Programming</div>
+                <div class="competency-item">System Integration Capabilities</div>
+            </div>
+        </div>
+        
+        <div class="signature-section">
+            <div class="signature-block">
+                <div class="signature-line"></div>
+                <div class="signature-title">Course Director</div>
+            </div>
+            <div class="signature-block">
+                <div class="signature-line"></div>
+                <div class="signature-title">Technical Lead</div>
+            </div>
+        </div>
+        
+        <div class="date-section">
+            <div class="date-label">Date of Completion</div>
+            <div class="date-value">[COMPLETION_DATE]</div>
+        </div>
+        
+        <div class="certificate-id">Certificate ID: [CERTIFICATE_ID]</div>
+    </div>
+    
+    <script>
+        // Certificate generation and customization script
+        function generateCertificate(studentName, completionDate, certificateId) {
+            document.querySelector('.recipient-name').textContent = studentName;
+            document.querySelector('.date-value').textContent = completionDate;
+            document.querySelector('.certificate-id').textContent = `Certificate ID: ${certificateId}`;
+        }
+        
+        function printCertificate() {
+            window.print();
+        }
+        
+        function downloadCertificate() {
+            // Implementation for PDF generation would go here
+            // This would typically use a library like jsPDF or html2canvas
+            console.log('Certificate download functionality would be implemented here');
+        }
+        
+        // Example usage:
+        // generateCertificate('John Doe', 'June 15, 2025', 'ARM-AARCH64-2025-001');
+    </script>
+</body>
+</html>

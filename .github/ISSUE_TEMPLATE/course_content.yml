@@ -1,0 +1,233 @@
+name: 📚 Course Content Suggestion
+description: Suggest improvements, additions, or corrections to course content
+title: "[CONTENT] "
+labels: ["content", "educational", "needs-review"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve the ARM AArch64 Assembly Language University course content! 
+        Your suggestions help ensure the course remains accurate, comprehensive, and educationally effective.
+
+  - type: dropdown
+    id: content-type
+    attributes:
+      label: Content Type
+      description: What type of content suggestion is this?
+      options:
+        - Exercise (new exercise or improvement to existing)
+        - Documentation (guides, explanations, references)
+        - Example Code (demonstrations, samples, templates)
+        - Assessment (quizzes, projects, evaluation criteria)
+        - Resource (references, tools, external links)
+        - Module Structure (organization, progression, flow)
+        - ARM Manual Integration (references, explanations, navigation)
+        - LLM Prompts (research guidance, methodology)
+        - Other (please specify in description)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: suggestion-type
+    attributes:
+      label: Suggestion Type
+      description: What kind of change are you suggesting?
+      options:
+        - New Content (add something that doesn't exist)
+        - Content Improvement (enhance existing content)
+        - Content Correction (fix errors or inaccuracies)
+        - Content Reorganization (restructure or reorder)
+        - Content Removal (remove outdated or incorrect content)
+        - Content Update (update for new ARM features or tools)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target-module
+    attributes:
+      label: Target Module
+      description: Which module does this suggestion relate to?
+      options:
+        - M1 - Foundation & Setup
+        - M2 - Data & Registers
+        - M3 - Basic Instruction Set
+        - M4 - Memory & Data Structures
+        - M5 - Control Flow & Structure
+        - M6 - Advanced Features
+        - M7 - Optimization & Debugging
+        - M8 - Applications & Capstone
+        - General Course Structure
+        - Multiple Modules
+        - New Module Suggestion
+    validations:
+      required: true
+
+  - type: dropdown
+    id: difficulty-level
+    attributes:
+      label: Difficulty Level
+      description: What difficulty level does this content target?
+      options:
+        - Beginner
+        - Intermediate
+        - Advanced
+        - Expert
+        - Multiple Levels
+        - Progressive (spans multiple levels)
+    validations:
+      required: false
+
+  - type: textarea
+    id: content-description
+    attributes:
+      label: Content Description
+      description: Describe your content suggestion in detail
+      placeholder: |
+        Provide a comprehensive description of your suggestion:
+        - What content are you proposing?
+        - Where should it be located in the course?
+        - How does it fit with existing content?
+    validations:
+      required: true
+
+  - type: textarea
+    id: educational-rationale
+    attributes:
+      label: Educational Rationale
+      description: Why is this content important for student learning?
+      placeholder: |
+        Explain the educational value of this suggestion:
+        - What learning objectives does it support?
+        - How does it enhance student understanding?
+        - What gap does it fill in the current curriculum?
+        - How does it align with the DREAM methodology?
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-content-issues
+    attributes:
+      label: Current Content Issues (if applicable)
+      description: If this is an improvement or correction, describe the current issues
+      placeholder: |
+        If you're suggesting changes to existing content:
+        - What are the current problems or limitations?
+        - What specific errors or inaccuracies need correction?
+        - How does the current content fall short of learning objectives?
+    validations:
+      required: false
+
+  - type: textarea
+    id: proposed-content
+    attributes:
+      label: Proposed Content
+      description: Provide the actual content or detailed outline
+      placeholder: |
+        If you have specific content to suggest, include it here:
+        - Exercise code or pseudocode
+        - Documentation text or outline
+        - Example implementations
+        - Assessment questions or criteria
+        
+        For large content submissions, consider creating a draft and linking to it.
+    validations:
+      required: false
+
+  - type: textarea
+    id: arm-manual-references
+    attributes:
+      label: ARM Manual References
+      description: What ARM Architecture Reference Manual sections are relevant?
+      placeholder: |
+        List relevant ARM manual sections:
+        - Section numbers and titles
+        - Specific pages or subsections
+        - How the content relates to official ARM documentation
+        - Any discrepancies or clarifications needed
+    validations:
+      required: false
+
+  - type: textarea
+    id: learning-objectives
+    attributes:
+      label: Learning Objectives
+      description: What specific learning objectives does this content address?
+      placeholder: |
+        Define clear, measurable learning objectives:
+        - What should students be able to do after engaging with this content?
+        - How does this build on previous learning?
+        - What skills or knowledge does it develop?
+    validations:
+      required: false
+
+  - type: textarea
+    id: assessment-suggestions
+    attributes:
+      label: Assessment Suggestions
+      description: How should student understanding of this content be assessed?
+      placeholder: |
+        Suggest ways to evaluate student learning:
+        - What exercises or activities would reinforce the content?
+        - How can students demonstrate mastery?
+        - What common misconceptions should be addressed?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: implementation-priority
+    attributes:
+      label: Implementation Priority
+      description: How urgent is this content suggestion?
+      options:
+        - Low (enhancement for future consideration)
+        - Medium (valuable improvement, moderate timeline)
+        - High (important for course quality, should be addressed soon)
+        - Critical (fixes major issue, needs immediate attention)
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-resources
+    attributes:
+      label: Additional Resources
+      description: Any supporting materials, references, or examples
+      placeholder: |
+        Include any relevant resources:
+        - Links to external documentation or tutorials
+        - References to academic papers or industry standards
+        - Examples from other educational materials
+        - Related tools or software
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution-offer
+    attributes:
+      label: Contribution Offer
+      description: Are you willing to help develop this content?
+      options:
+        - label: I can help write/develop this content
+          required: false
+        - label: I can help review and test this content
+          required: false
+        - label: I can provide subject matter expertise
+          required: false
+        - label: I can help with technical implementation
+          required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please confirm you have completed these steps
+      options:
+        - label: I have searched existing issues to ensure this is not a duplicate
+          required: true
+        - label: I have provided clear educational rationale for this suggestion
+          required: true
+        - label: I have considered how this fits with existing course structure
+          required: true
+        - label: I have referenced relevant ARM documentation where applicable
+          required: false

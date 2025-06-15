@@ -1,0 +1,241 @@
+name: 📚 Course Content Suggestion
+description: Suggest new course content, exercises, or educational improvements
+title: "[CONTENT] "
+labels: ["content", "educational", "needs-review"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting course content! Your educational insights help improve the learning experience.
+        
+  - type: dropdown
+    id: content-type
+    attributes:
+      label: Content Type
+      description: What type of content are you suggesting?
+      options:
+        - New Module/Chapter
+        - Exercise/Lab
+        - Project Assignment
+        - Code Example
+        - Conceptual Explanation
+        - Reference Material
+        - Assessment/Quiz
+        - Interactive Demo
+        - Video Content
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target-module
+    attributes:
+      label: Target Module
+      description: Which module should this content be added to?
+      options:
+        - M1 - Foundation
+        - M2 - Data & Registers
+        - M3 - Basic Instruction Set
+        - M4 - Memory & Data Structures
+        - M5 - Control Flow & Structure
+        - M6 - Advanced Features
+        - M7 - Optimization & Debugging
+        - New Module (specify in description)
+        - Cross-Module Content
+        - Course Introduction
+        - Course Conclusion
+    validations:
+      required: true
+
+  - type: dropdown
+    id: difficulty-level
+    attributes:
+      label: Difficulty Level
+      description: What difficulty level is this content for?
+      options:
+        - Beginner (new to programming/assembly)
+        - Intermediate (some programming experience)
+        - Advanced (experienced programmer, new to assembly)
+        - Expert (experienced assembly programmer)
+        - Progressive (starts easy, builds complexity)
+    validations:
+      required: true
+
+  - type: textarea
+    id: content-description
+    attributes:
+      label: Content Description
+      description: Detailed description of the proposed content
+      placeholder: Describe the content you'd like to see added...
+    validations:
+      required: true
+
+  - type: textarea
+    id: learning-objectives
+    attributes:
+      label: Learning Objectives
+      description: What specific skills or knowledge should students gain?
+      placeholder: |
+        After completing this content, students will be able to:
+        - Understand...
+        - Implement...
+        - Analyze...
+        - Debug...
+    validations:
+      required: true
+
+  - type: textarea
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      description: What should students know before attempting this content?
+      placeholder: |
+        Students should have completed:
+        - Module X
+        - Understanding of Y concept
+        - Familiarity with Z
+    validations:
+      required: false
+
+  - type: dropdown
+    id: estimated-time
+    attributes:
+      label: Estimated Time Investment
+      description: How long should this content take to complete?
+      options:
+        - 15-30 minutes
+        - 30-60 minutes
+        - 1-2 hours
+        - 2-4 hours
+        - 4-8 hours
+        - 1-2 days
+        - 1 week
+        - Multiple weeks
+    validations:
+      required: false
+
+  - type: textarea
+    id: content-outline
+    attributes:
+      label: Content Outline
+      description: Provide a structured outline of the content
+      placeholder: |
+        1. Introduction
+           - Concept overview
+           - Real-world applications
+        2. Theory/Background
+           - Key concepts
+           - ARM-specific considerations
+        3. Implementation
+           - Step-by-step guide
+           - Code examples
+        4. Practice
+           - Exercises
+           - Challenges
+        5. Assessment
+           - Self-check questions
+           - Practical tasks
+    validations:
+      required: false
+
+  - type: textarea
+    id: code-examples
+    attributes:
+      label: Code Examples/Snippets
+      description: Any specific code examples or snippets to include
+      render: assembly
+    validations:
+      required: false
+
+  - type: dropdown
+    id: assessment-type
+    attributes:
+      label: Assessment Method
+      description: How should student understanding be evaluated?
+      options:
+        - Hands-on coding exercise
+        - Multiple choice questions
+        - Code review/analysis
+        - Project implementation
+        - Debugging challenge
+        - Performance optimization
+        - Peer review
+        - Self-assessment
+        - No formal assessment
+    validations:
+      required: false
+
+  - type: textarea
+    id: real-world-connection
+    attributes:
+      label: Real-World Applications
+      description: How does this content connect to real-world scenarios?
+      placeholder: Explain practical applications, industry relevance, or career connections...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: content-priority
+    attributes:
+      label: Content Priority
+      description: How important is this content for the course?
+      options:
+        - Essential (core curriculum)
+        - Important (strongly recommended)
+        - Supplementary (nice to have)
+        - Advanced (for motivated students)
+        - Optional (enrichment material)
+    validations:
+      required: true
+
+  - type: textarea
+    id: resources-references
+    attributes:
+      label: Resources & References
+      description: Any books, papers, websites, or other resources to reference
+      placeholder: |
+        - ARM Architecture Reference Manual, Section X
+        - "Computer Organization and Design" by Patterson & Hennessy
+        - https://example.com/relevant-tutorial
+    validations:
+      required: false
+
+  - type: dropdown
+    id: contribution-offer
+    attributes:
+      label: Contribution Offer
+      description: Can you help create this content?
+      options:
+        - Yes, I can write the full content
+        - Yes, I can provide initial draft
+        - Yes, I can help with code examples
+        - Yes, I can help with exercises
+        - Yes, I can help with review/testing
+        - Yes, I can provide subject matter expertise
+        - No, but I can test the content
+        - No, I cannot contribute to creation
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-notes
+    attributes:
+      label: Additional Notes
+      description: Any other relevant information or context
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing content to avoid duplicates
+          required: true
+        - label: This content aligns with the course's educational objectives
+          required: true
+        - label: I have provided clear learning objectives
+          required: true
+        - label: I understand this is an educational open-source project
+          required: true

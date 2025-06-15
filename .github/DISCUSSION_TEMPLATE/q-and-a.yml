@@ -1,0 +1,122 @@
+labels: ["question", "help-wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # ❓ Questions & Help
+        
+        Welcome to the ARM AArch64 Assembly Language University Q&A! 
+        This is the place to ask questions, seek help, and get support from the community.
+        
+        **Before posting, please:**
+        - Search existing discussions to see if your question has been answered
+        - Check the relevant module documentation and ARM manual references
+        - Try using the DREAM methodology to explore the problem first
+
+  - type: dropdown
+    id: question-type
+    attributes:
+      label: Question Type
+      description: What type of question or help do you need?
+      options:
+        - Assembly Syntax & Instructions
+        - ARM Architecture Concepts
+        - Exercise Help & Guidance
+        - Development Environment Setup
+        - Debugging & Troubleshooting
+        - Performance & Optimization
+        - ARM Manual Navigation
+        - LLM Integration & Research Methods
+        - Course Navigation & Structure
+        - Career & Professional Development
+        - General ARM Assembly Programming
+    validations:
+      required: true
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Related Module (if applicable)
+      description: Which module is your question related to?
+      options:
+        - M1 - Foundation & Setup
+        - M2 - Data & Registers
+        - M3 - Basic Instruction Set
+        - M4 - Memory & Data Structures
+        - M5 - Control Flow & Structure
+        - M6 - Advanced Features
+        - M7 - Optimization & Debugging
+        - M8 - Applications & Capstone
+        - Multiple Modules
+        - Not Module-Specific
+    validations:
+      required: false
+
+  - type: textarea
+    id: question-details
+    attributes:
+      label: Your Question
+      description: Please describe your question or the help you need
+      placeholder: |
+        Be as specific as possible:
+        - What are you trying to accomplish?
+        - What have you tried so far?
+        - What specific part is confusing or not working?
+        - What error messages or unexpected behavior are you seeing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: code-context
+    attributes:
+      label: Code Context (if applicable)
+      description: Share relevant code, error messages, or output
+      render: assembly
+      placeholder: |
+        Include:
+        - Relevant assembly code
+        - Error messages
+        - Compiler/assembler output
+        - Expected vs actual behavior
+    validations:
+      required: false
+
+  - type: textarea
+    id: research-attempted
+    attributes:
+      label: Research & Attempts
+      description: What have you already tried or researched?
+      placeholder: |
+        Following the DREAM methodology:
+        - What ARM manual sections have you consulted?
+        - What experiments have you tried?
+        - What resources have you checked?
+        - What specific aspects are you struggling with?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency Level
+      description: How urgent is this question?
+      options:
+        - Low (general curiosity or future learning)
+        - Medium (working on assignment, not urgent)
+        - High (stuck on current work, need help soon)
+        - Critical (blocking progress, need immediate help)
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment-info
+    attributes:
+      label: Environment Information
+      description: What's your development environment?
+      placeholder: |
+        - Operating System (Linux, macOS, Windows)
+        - ARM toolchain version
+        - QEMU version (if using emulation)
+        - Any other relevant tools or versions
+    validations:
+      required: false

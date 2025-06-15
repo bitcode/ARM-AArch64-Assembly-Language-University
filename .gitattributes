@@ -1,0 +1,105 @@
+# =============================================================================
+# ARM Assembly Language University - Git Attributes
+# =============================================================================
+# This file defines merge strategies and conflict resolution rules for the
+# dual-zone directory structure and student workflow patterns.
+
+# =============================================================================
+# STUDENT WORKSPACE CONFLICT RESOLUTION
+# =============================================================================
+# Student work directories should always favor student changes
+*/student-work/** merge=ours
+*/personal-notes/** merge=ours
+student-workspace/** merge=ours
+personal-workspace/** merge=ours
+
+# Student exercise solutions - favor student version
+*.solution.s merge=ours
+*-solution.s merge=ours
+*-my-solution.s merge=ours
+
+# Personal configuration files
+.student-config merge=ours
+student-settings.* merge=ours
+personal-settings.* merge=ours
+
+# =============================================================================
+# COURSE CONTENT CONFLICT RESOLUTION
+# =============================================================================
+# Course materials should favor upstream (instructor) changes
+modules/**/README.md merge=theirs
+modules/**/exercises/*.s merge=union
+course-manifest.yaml merge=theirs
+COURSE_OVERVIEW.md merge=theirs
+
+# Documentation files - favor upstream updates
+docs/** merge=theirs
+resources/** merge=theirs
+assessment/** merge=theirs
+
+# =============================================================================
+# BINARY AND GENERATED FILES
+# =============================================================================
+# Binary files should not be merged
+*.o binary
+*.exe binary
+*.elf binary
+*.bin binary
+*.hex binary
+*.img binary
+
+# Generated documentation
+*.pdf binary
+*.docx binary
+
+# =============================================================================
+# SPECIAL MERGE STRATEGIES
+# =============================================================================
+# Configuration files that need manual review
+.gitignore merge=union
+tools/config/** merge=union
+*/config.yaml merge=union
+
+# Build scripts - union merge to preserve customizations
+Makefile merge=union
+*.mk merge=union
+build.sh merge=union
+setup.sh merge=union
+
+# =============================================================================
+# LINE ENDING NORMALIZATION
+# =============================================================================
+# Ensure consistent line endings across platforms
+*.s text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.sh text eol=lf
+*.bash text eol=lf
+
+# Windows batch files
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# =============================================================================
+# LANGUAGE DETECTION
+# =============================================================================
+# Help GitHub recognize assembly files
+*.s linguist-language=Assembly
+*.S linguist-language=Assembly
+*.asm linguist-language=Assembly
+
+# Mark generated files
+docs/generated/** linguist-generated=true
+build/** linguist-generated=true
+dist/** linguist-generated=true
+
+# =============================================================================
+# EXPORT IGNORE
+# =============================================================================
+# Files to exclude from git archive exports
+.gitattributes export-ignore
+.gitignore export-ignore
+.github/ export-ignore
+tools/git-workflow/ export-ignore

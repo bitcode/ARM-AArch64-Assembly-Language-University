@@ -1,0 +1,86 @@
+MIT License
+
+Copyright (c) 2025 ARM Assembly Language University
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## Educational Use Notice
+
+This repository contains educational materials for learning ARM assembly language programming. The content is specifically designed for educational purposes and includes:
+
+- Course modules and structured learning materials
+- Code examples and exercises
+- Projects and assessments
+- Documentation and guides
+
+### Educational License Terms
+
+In addition to the MIT License terms above, the following applies to educational use:
+
+1. **Attribution**: When using these materials in educational settings, please provide appropriate attribution to "ARM Assembly Language University" and include a link to the original repository.
+
+2. **Educational Context**: These materials are designed for learning purposes. Some code examples may intentionally demonstrate vulnerabilities or simplified implementations for educational clarity. Always review and adapt code for production use.
+
+3. **Derivative Works**: You are encouraged to create derivative educational materials based on this content. Please maintain educational quality and accuracy when doing so.
+
+4. **Commercial Use**: While the MIT License permits commercial use, we encourage educational institutions and training organizations to contribute improvements back to the community.
+
+### Recommended Attribution
+
+When using these materials, please include attribution similar to:
+
+```
+Based on materials from ARM Assembly Language University
+https://github.com/[repository-url]
+Licensed under MIT License
+```
+
+### Contributing Back
+
+If you improve or extend these educational materials, consider contributing back to help the entire learning community. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+### Third-Party Content
+
+This repository may reference or include links to third-party educational resources. Such content remains under its original license terms. Notable third-party content includes:
+
+- ARM Architecture Reference Manual (ARM Limited)
+- GNU Toolchain documentation (Free Software Foundation)
+- External tutorials and resources (various authors)
+
+### Disclaimer
+
+The educational materials in this repository are provided for learning purposes. While we strive for accuracy and educational value:
+
+- Code examples may be simplified for clarity
+- Some examples may intentionally demonstrate poor practices for educational comparison
+- Production use requires additional security and robustness considerations
+- The authors are not responsible for any consequences of using this educational content
+
+### Contact
+
+For questions about licensing or educational use, please:
+- Open a discussion in the repository
+- Contact the maintainers through GitHub
+- Refer to the [SUPPORT.md](SUPPORT.md) file for additional resources
+
+---
+
+**Note**: This license applies to the educational content and structure of the course. Individual code examples and exercises are also covered under this license unless otherwise specified.

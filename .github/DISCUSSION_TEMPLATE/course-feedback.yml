@@ -1,0 +1,88 @@
+labels: ["feedback", "course-improvement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 📚 Course Feedback & Suggestions
+        
+        Thank you for taking the time to provide feedback on the ARM AArch64 Assembly Language University course! 
+        Your insights help us continuously improve the learning experience for all students.
+
+  - type: dropdown
+    id: feedback-type
+    attributes:
+      label: Feedback Type
+      description: What type of feedback are you providing?
+      options:
+        - General Course Feedback
+        - Module-Specific Feedback
+        - Exercise Feedback
+        - Documentation Feedback
+        - Tool/Platform Feedback
+        - Learning Experience Feedback
+        - Instructor Resources Feedback
+        - Assessment Feedback
+    validations:
+      required: true
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: Module (if applicable)
+      description: Which module does this feedback relate to?
+      options:
+        - M1 - Foundation & Setup
+        - M2 - Data & Registers
+        - M3 - Basic Instruction Set
+        - M4 - Memory & Data Structures
+        - M5 - Control Flow & Structure
+        - M6 - Advanced Features
+        - M7 - Optimization & Debugging
+        - M8 - Applications & Capstone
+        - Multiple Modules
+        - General Course Structure
+    validations:
+      required: false
+
+  - type: textarea
+    id: feedback-details
+    attributes:
+      label: Detailed Feedback
+      description: Please provide your detailed feedback, suggestions, or observations
+      placeholder: |
+        Share your thoughts on:
+        - What's working well?
+        - What could be improved?
+        - What's missing or unclear?
+        - Suggestions for enhancement
+    validations:
+      required: true
+
+  - type: dropdown
+    id: experience-level
+    attributes:
+      label: Your Experience Level
+      description: What's your background with ARM assembly?
+      options:
+        - Complete Beginner
+        - Some Programming Experience
+        - Experienced Programmer (New to Assembly)
+        - Some Assembly Experience
+        - Experienced Assembly Programmer
+        - ARM Assembly Expert
+        - Instructor/Educator
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that would help us understand your feedback
+      placeholder: |
+        - Your learning goals
+        - How you're using the course
+        - Specific challenges you've encountered
+        - Success stories or achievements
+    validations:
+      required: false

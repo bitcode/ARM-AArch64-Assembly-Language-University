@@ -1,0 +1,20 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Community Discussions
+    url: https://github.com/bitcode/ARM-AArch64-Assembly-Language-University/discussions
+    about: Join our community discussions for general questions, course feedback, and peer collaboration
+  - name: 🙋‍♀️ Q&A Forum
+    url: https://github.com/bitcode/ARM-AArch64-Assembly-Language-University/discussions/categories/q-a
+    about: Get help with exercises, concepts, and technical questions from the community
+  - name: 📚 Course Feedback
+    url: https://github.com/bitcode/ARM-AArch64-Assembly-Language-University/discussions/categories/course-feedback
+    about: Share feedback and suggestions about the course content and structure
+  - name: 🔒 Security Issues
+    url: https://github.com/bitcode/ARM-AArch64-Assembly-Language-University/security/advisories/new
+    about: Report security vulnerabilities privately through GitHub Security Advisories
+  - name: 📖 Contributing Guide
+    url: https://github.com/bitcode/ARM-AArch64-Assembly-Language-University/blob/main/CONTRIBUTING.md
+    about: Learn how to contribute to the course - read this before making contributions
+  - name: 🤝 Code of Conduct
+    url: https://github.com/bitcode/ARM-AArch64-Assembly-Language-University/blob/main/CODE_OF_CONDUCT.md
+    about: Review our community standards and guidelines for participation

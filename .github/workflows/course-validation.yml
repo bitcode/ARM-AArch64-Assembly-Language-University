@@ -1,0 +1,199 @@
+name: Course Content Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run weekly to catch any issues with external dependencies
+    - cron: '0 2 * * 1'
+
+jobs:
+  validate-content:
+    name: Validate Course Content
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup ARM toolchain
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gcc-aarch64-linux-gnu qemu-user-static
+        
+    - name: Verify toolchain installation
+      run: |
+        aarch64-linux-gnu-gcc --version
+        qemu-aarch64-static --version
+        
+    - name: Validate assembly files syntax
+      run: |
+        echo "Checking assembly file syntax..."
+        find . -name "*.s" -type f | while read -r file; do
+          echo "Checking: $file"
+          # Basic syntax check by attempting to assemble
+          if ! aarch64-linux-gnu-as "$file" -o /tmp/test.o 2>/dev/null; then
+            echo "❌ Syntax error in: $file"
+            aarch64-linux-gnu-as "$file" -o /tmp/test.o
+            exit 1
+          else
+            echo "✅ Syntax OK: $file"
+          fi
+        done
+        
+    - name: Validate markdown files
+      uses: DavidAnson/markdownlint-cli2-action@v20
+      with:
+        globs: '**/*.md'
+        config: |
+          {
+            "MD013": false,
+            "MD033": false,
+            "MD041": false
+          }
+          
+    - name: Check for broken links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
+        config-file: '.github/workflows/link-check-config.json'
+        
+    - name: Validate YAML files
+      run: |
+        sudo apt-get install -y yamllint
+        find . -name "*.yml" -o -name "*.yaml" | xargs yamllint -d relaxed
+        
+    - name: Check course structure
+      run: |
+        echo "Validating course structure..."
+        
+        # Check required directories exist
+        required_dirs=("modules" "resources" "tools" "assessment")
+        for dir in "${required_dirs[@]}"; do
+          if [ ! -d "$dir" ]; then
+            echo "❌ Missing required directory: $dir"
+            exit 1
+          else
+            echo "✅ Found directory: $dir"
+          fi
+        done
+        
+        # Check required files exist
+        required_files=("README.md" "CONTRIBUTING.md" "CODE_OF_CONDUCT.md")
+        for file in "${required_files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "❌ Missing required file: $file"
+            exit 1
+          else
+            echo "✅ Found file: $file"
+          fi
+        done
+        
+        # Check module structure
+        for i in {1..8}; do
+          module_dir="modules/m$i-*"
+          if ! ls -d $module_dir 1> /dev/null 2>&1; then
+            echo "❌ Missing module directory for M$i"
+            exit 1
+          else
+            echo "✅ Found module M$i"
+          fi
+        done
+        
+    - name: Validate exercise naming conventions
+      run: |
+        echo "Checking exercise naming conventions..."
+        find modules/ -name "*.s" -type f | while read -r file; do
+          filename=$(basename "$file")
+          # Check if filename follows pattern: module.lesson-topic-difficulty.s
+          if [[ ! $filename =~ ^[0-9]+\.[0-9]+-[a-zA-Z0-9_-]+-[a-zA-Z]+\.s$ ]]; then
+            echo "⚠️  Filename may not follow convention: $file"
+            echo "   Expected pattern: module.lesson-topic-difficulty.s"
+          else
+            echo "✅ Naming convention OK: $file"
+          fi
+        done
+        
+    - name: Check for TODO and FIXME comments
+      run: |
+        echo "Checking for TODO and FIXME comments..."
+        todo_count=$(grep -r "TODO\|FIXME" --include="*.s" --include="*.md" . | wc -l)
+        if [ $todo_count -gt 0 ]; then
+          echo "Found $todo_count TODO/FIXME comments:"
+          grep -r "TODO\|FIXME" --include="*.s" --include="*.md" . || true
+        else
+          echo "No TODO/FIXME comments found"
+        fi
+        
+    - name: Generate validation report
+      if: always()
+      run: |
+        echo "## Course Validation Report" > validation-report.md
+        echo "Generated on: $(date)" >> validation-report.md
+        echo "" >> validation-report.md
+        
+        # Count files by type
+        echo "### File Statistics" >> validation-report.md
+        echo "- Assembly files: $(find . -name '*.s' | wc -l)" >> validation-report.md
+        echo "- Markdown files: $(find . -name '*.md' | wc -l)" >> validation-report.md
+        echo "- YAML files: $(find . -name '*.yml' -o -name '*.yaml' | wc -l)" >> validation-report.md
+        echo "" >> validation-report.md
+        
+        # Module summary
+        echo "### Module Summary" >> validation-report.md
+        for i in {1..8}; do
+          module_dir=$(ls -d modules/m$i-* 2>/dev/null | head -1)
+          if [ -n "$module_dir" ]; then
+            exercise_count=$(find "$module_dir" -name "*.s" | wc -l)
+            echo "- M$i: $exercise_count exercises" >> validation-report.md
+          fi
+        done
+        
+    - name: Upload validation report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: validation-report
+        path: validation-report.md
+
+  test-setup-scripts:
+    name: Test Setup Scripts
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Test setup script (dry run)
+      run: |
+        if [ -f "tools/setup/setup.sh" ]; then
+          echo "Testing setup script..."
+          # Run setup script in dry-run mode if supported
+          bash tools/setup/setup.sh --help || echo "Setup script exists but no help option"
+        else
+          echo "No setup script found at tools/setup/setup.sh"
+        fi
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Run security scan
+      uses: super-linter/super-linter@v6
+      env:
+        DEFAULT_BRANCH: main
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        VALIDATE_ALL_CODEBASE: false
+        VALIDATE_BASH: true
+        VALIDATE_MARKDOWN: true
+        VALIDATE_YAML: true

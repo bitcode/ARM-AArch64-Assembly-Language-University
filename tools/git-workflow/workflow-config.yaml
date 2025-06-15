@@ -1,0 +1,261 @@
+# =============================================================================
+# ARM Assembly Language University - Git Workflow Configuration
+# =============================================================================
+# This file defines the configuration for the student Git workflow system
+
+workflow:
+  name: "ARM Assembly University Student Workflow"
+  version: "1.0.0"
+  description: "Fork-based workflow with dual-zone directory structure"
+
+# =============================================================================
+# REPOSITORY STRUCTURE
+# =============================================================================
+repository:
+  upstream:
+    name: "upstream"
+    url_pattern: "https://github.com/original-repo/Arm-Assembly-Language-University.git"
+    default_branch: "main"
+  
+  origin:
+    name: "origin" 
+    url_pattern: "https://github.com/{username}/Arm-Assembly-Language-University.git"
+    default_branch: "main"
+
+# =============================================================================
+# BRANCH STRATEGY
+# =============================================================================
+branches:
+  main:
+    description: "Synchronized with upstream course content"
+    protection: "read-only"
+    auto_sync: true
+    
+  personal-work:
+    description: "Student's primary working branch"
+    protection: "student-owned"
+    auto_backup: true
+    base_branch: "main"
+    
+  course-updates:
+    description: "Temporary branch for merging upstream changes"
+    protection: "temporary"
+    auto_cleanup: true
+    base_branch: "main"
+    
+  backup-branches:
+    pattern: "backup/{date}-{description}"
+    description: "Automated backups of student work"
+    retention_days: 30
+    auto_create: true
+
+# =============================================================================
+# DIRECTORY ZONES
+# =============================================================================
+directory_zones:
+  course_content:
+    description: "Instructor-managed course materials"
+    paths:
+      - "modules/*/README.md"
+      - "modules/*/exercises/*.s"
+      - "resources/"
+      - "docs/"
+      - "assessment/"
+      - "tools/setup/"
+      - "tools/testing/"
+    conflict_resolution: "favor_upstream"
+    student_access: "read-only"
+    
+  student_workspace:
+    description: "Student-managed workspace areas"
+    paths:
+      - "modules/*/student-work/"
+      - "modules/*/personal-notes/"
+      - "student-workspace/"
+      - "personal-workspace/"
+    conflict_resolution: "favor_student"
+    student_access: "full-control"
+    auto_backup: true
+    
+  shared_config:
+    description: "Configuration files requiring manual review"
+    paths:
+      - ".gitignore"
+      - "tools/config/"
+      - "*/config.yaml"
+    conflict_resolution: "manual_review"
+    student_access: "review-required"
+
+# =============================================================================
+# CONFLICT RESOLUTION RULES
+# =============================================================================
+conflict_resolution:
+  strategies:
+    favor_upstream:
+      description: "Always use upstream version"
+      git_strategy: "theirs"
+      
+    favor_student:
+      description: "Always use student version"
+      git_strategy: "ours"
+      
+    union_merge:
+      description: "Combine both versions"
+      git_strategy: "union"
+      
+    manual_review:
+      description: "Require manual conflict resolution"
+      git_strategy: "manual"
+      notification: true
+
+  file_patterns:
+    # Course content - favor upstream
+    "modules/**/README.md": "favor_upstream"
+    "resources/**": "favor_upstream"
+    "docs/**": "favor_upstream"
+    "assessment/**": "favor_upstream"
+    "course-manifest.yaml": "favor_upstream"
+    
+    # Student work - favor student
+    "*/student-work/**": "favor_student"
+    "*/personal-notes/**": "favor_student"
+    "*.solution.s": "favor_student"
+    "*-solution.s": "favor_student"
+    
+    # Configuration - manual review
+    ".gitignore": "union_merge"
+    "tools/config/**": "manual_review"
+    "*/config.yaml": "manual_review"
+    
+    # Build files - union merge
+    "Makefile": "union_merge"
+    "*.mk": "union_merge"
+    "build.sh": "union_merge"
+
+# =============================================================================
+# AUTOMATION SETTINGS
+# =============================================================================
+automation:
+  backup:
+    enabled: true
+    frequency: "daily"
+    retention_days: 30
+    include_untracked: false
+    branch_pattern: "backup/{date}-auto"
+    
+  sync:
+    enabled: true
+    check_frequency: "weekly"
+    auto_merge_safe: true
+    notification: true
+    
+  validation:
+    enabled: true
+    pre_commit: true
+    pre_push: true
+    checks:
+      - "student_work_integrity"
+      - "no_course_content_modification"
+      - "proper_directory_structure"
+
+# =============================================================================
+# STUDENT WORKSPACE TEMPLATE
+# =============================================================================
+workspace_template:
+  directories:
+    - "student-work/exercises/"
+    - "student-work/projects/"
+    - "student-work/experiments/"
+    - "personal-notes/module-notes/"
+    - "personal-notes/research/"
+    - "personal-notes/debugging-logs/"
+    
+  files:
+    "student-work/README.md":
+      template: "student-workspace-readme.md"
+    "personal-notes/README.md":
+      template: "personal-notes-readme.md"
+    ".student-config":
+      template: "student-config-template"
+
+# =============================================================================
+# SEMESTER UPDATE SETTINGS
+# =============================================================================
+semester_updates:
+  schedule:
+    - week: 1
+      description: "Course introduction and setup"
+      critical: true
+    - week: 4
+      description: "Mid-course content updates"
+      critical: false
+    - week: 8
+      description: "Advanced topics release"
+      critical: false
+    - week: 12
+      description: "Final projects and assessment"
+      critical: true
+      
+  notification:
+    enabled: true
+    methods: ["git-message", "readme-update"]
+    advance_notice_days: 3
+
+# =============================================================================
+# VALIDATION RULES
+# =============================================================================
+validation:
+  student_work:
+    required_structure:
+      - "modules/*/student-work/"
+      - "modules/*/personal-notes/"
+    
+    forbidden_modifications:
+      - "modules/*/README.md"
+      - "course-manifest.yaml"
+      - "resources/"
+      - "docs/"
+      
+    file_size_limits:
+      "*.s": "1MB"
+      "*.md": "500KB"
+      "*.txt": "100KB"
+      
+  repository_integrity:
+    check_upstream_connection: true
+    verify_branch_structure: true
+    validate_directory_permissions: true
+    check_conflict_markers: true
+
+# =============================================================================
+# ERROR HANDLING
+# =============================================================================
+error_handling:
+  backup_on_error: true
+  rollback_capability: true
+  error_log_location: "tools/git-workflow/logs/"
+  notification_on_failure: true
+  
+  recovery_strategies:
+    merge_conflict: "create_backup_and_guide"
+    upstream_sync_failure: "manual_intervention_required"
+    workspace_corruption: "restore_from_backup"
+    permission_error: "reset_permissions_and_retry"
+
+# =============================================================================
+# LOGGING AND MONITORING
+# =============================================================================
+logging:
+  enabled: true
+  level: "INFO"
+  location: "tools/git-workflow/logs/"
+  rotation: "weekly"
+  retention_weeks: 4
+  
+  events:
+    - "workspace_initialization"
+    - "backup_creation"
+    - "upstream_sync"
+    - "conflict_resolution"
+    - "validation_checks"
+    - "error_conditions"
