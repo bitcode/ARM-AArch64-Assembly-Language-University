@@ -1,0 +1,22 @@
+# Student Workspace Configuration
+# This file tracks your personal workspace setup
+
+[workspace]
+initialized_date = 2025-06-15T19:55:22Z
+git_user = Not configured
+git_email = Not configured
+
+[preferences]
+auto_backup = true
+backup_frequency = daily
+sync_notifications = true
+
+[directories]
+student_work_created = true
+personal_notes_created = true
+workspace_structure = dual-zone
+
+[git_workflow]
+upstream_configured = true
+branch_strategy = fork-based
+conflict_resolution = configured

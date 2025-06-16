@@ -237,10 +237,24 @@ documentation/auto/
 # Log files from automated testing and grading
 *.log
 *.LOG
+*.log.*
+*.LOG.*
+logs/
+log/
+Log/
+LOG/
+Logs/
+LOGS/
 test-results/
 test-output/
 grading-logs/
 validation-logs/
+testing-logs/
+build-logs/
+compile-logs/
+debug-logs/
+error-logs/
+trace-logs/
 
 # Temporary exercise files
 exercise-temp/
@@ -262,10 +276,28 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 .npm
 .yarn-integrity
 package-lock.json
 yarn.lock
+pnpm-lock.yaml
+
+# General application log files
+application*.log
+app*.log
+server*.log
+client*.log
+service*.log
+daemon*.log
+system*.log
+access*.log
+error*.log
+debug*.log
+trace*.log
+audit*.log
+security*.log
+performance*.log
 
 # Python cache files (for any Python scripts/tools)
 __pycache__/
@@ -293,6 +325,16 @@ htmlcov/
 *~
 .#*
 #*#
+*.swp
+*.swo
+*.cache
+*.pid
+*.lock
+*.lockfile
+core
+core.*
+*.core
+*.dump
 
 # Archive files (unless specifically needed for course materials)
 *.zip
@@ -322,19 +364,33 @@ htmlcov/
 # OpenOCD (On-Chip Debugger) files
 *.cfg.bak
 openocd.log
+openocd*.log
+OpenOCD*.log
 
 # SEGGER J-Link files
 *.jlink
 JLink.log
 JLinkLog.txt
+JLink*.log
+jlink*.log
 
 # ST-Link files
 *.stlink
+stlink*.log
+STLink*.log
 
 # GDB debugging session files
 .gdb_history
 gdb.txt
+gdb*.log
 *.gdb
+*.gdbinit.local
+
+# ARM toolchain log files
+arm-none-eabi-*.log
+armclang*.log
+armasm*.log
+armlink*.log
 
 # Trace and profiling files
 *.trace
@@ -362,6 +418,13 @@ compiled-docs/
 # Temporary course validation files
 validation-temp/
 course-temp/
+
+# Tool-specific log directories
+tools/*/logs/
+tools/git-workflow/logs/
+tools/setup/logs/
+tools/testing/logs/
+tools/validation/logs/
 
 # Analytics and tracking files (if any)
 analytics-data/

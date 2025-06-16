@@ -1,75 +1,72 @@
-# Course Modules
+# ARM Assembly Course - Redesigned Modules
 
-This directory contains the 8 core modules of the ARM AArch64 Assembly Language University course. Each module builds upon previous knowledge and introduces new concepts progressively.
+This directory contains the **Phase 2 redesigned modules** with simplified structure and streamlined exercises.
 
-## Module Structure
+## 🎯 Design Goals Achieved
 
-Each module contains:
-- **README.md**: Learning objectives, prerequisites, and module overview
-- **exercises/**: Hands-on programming exercises with varying difficulty levels
-- **resources/**: Module-specific reference materials and guides
-- **examples/**: Sample code demonstrating key concepts
+✅ **Simplified Structure**: Flattened from complex dual-zone to single `exercises/` per module  
+✅ **Streamlined Exercises**: Reduced from 191+ lines to ~30 lines maximum  
+✅ **Clear Visual Markers**: ★ START HERE ★ with ASCII art borders  
+✅ **Essential Guidance Only**: Removed extensive boilerplate and YAML metadata  
+✅ **Copy-and-Edit Workflow**: `cp hello.s my-hello.s` for immediate coding  
 
-## Learning Path
-
-### Foundation Phase (Weeks 1-3)
-- **[M1: Foundation & Setup](m1-foundation/)** - Development environment, basic architecture
-- **[M2: Data & Registers](m2-data-registers/)** - Register usage, data types, addressing
-
-### Core Programming Phase (Weeks 4-7)
-- **[M3: Control Flow](m3-control-flow/)** - Branching, loops, conditional execution
-- **[M4: Functions & Stack](m4-functions-stack/)** - Calling conventions, stack management
-
-### Advanced Concepts Phase (Weeks 8-10)
-- **[M5: Memory & Pointers](m5-memory-pointers/)** - Memory models, data structures
-- **[M6: System Integration](m6-system-integration/)** - System calls, OS interaction
-
-### Mastery Phase (Weeks 11-12)
-- **[M7: Optimization](m7-optimization/)** - Performance tuning, SIMD instructions
-- **[M8: Applications](m8-applications/)** - Real-world projects, portfolio development
-
-## Exercise Naming Convention
-
-All exercises follow the pattern: `module-lesson.sublesson-topic-difficulty.s`
-
-**Difficulty Levels:**
-- `beginner` - Introduction to new concepts
-- `intermediate` - Applying concepts with moderate complexity
-- `advanced` - Complex implementations and optimizations
-- `expert` - Research-level challenges and open-ended problems
-
-**Examples:**
-- `1.1-hello-beginner.s` - First assembly program
-- `3.2-loops-intermediate.s` - Loop implementation practice
-- `7.1-simd-advanced.s` - SIMD optimization techniques
-
-## Module Dependencies
+## 📁 New Module Structure
 
 ```
-M1 (Foundation) → M2 (Data & Registers)
-                     ↓
-M3 (Control Flow) ← M4 (Functions & Stack)
-        ↓               ↓
-M5 (Memory & Pointers) → M6 (System Integration)
-                     ↓
-M7 (Optimization) → M8 (Applications)
+m1/                    # Foundation (was m1-foundation)
+├── README.md         # Brief overview (~35 lines)
+└── exercises/
+    ├── hello.s       # Hello world (~30 lines)
+    ├── registers.s   # Register manipulation
+    └── arithmetic.s  # Basic math operations
+
+m2/                    # Data & Registers (was m2-data-registers)
+├── README.md
+└── exercises/
+    ├── data-types.s  # Working with different data types
+    └── addressing.s  # Memory addressing modes
+
+m3/ through m8/        # Progressive complexity
+├── README.md         # Learning objectives & key concepts
+└── exercises/
+    └── [topic].s     # Focused, streamlined exercises
 ```
 
-## Getting Started
+## 🚀 Student Workflow
 
-1. **Start with M1**: Ensure your development environment is properly configured
-2. **Follow Sequential Order**: Each module builds on previous knowledge
-3. **Complete All Exercises**: Practice is essential for assembly language mastery
-4. **Use LLM Research Assistant**: Leverage AI guidance for understanding concepts
-5. **Review ARM Manual**: Reference official documentation for detailed specifications
+1. **Copy**: `cp m1/exercises/hello.s my-hello.s`
+2. **Edit**: Find ★ START HERE ★ marker and code
+3. **Build**: `../build.sh my-hello.s`
+4. **Run**: `qemu-aarch64-static ./my-hello`
 
-## Progress Tracking
+## 📊 Improvements Summary
 
-- Complete module README review before starting exercises
-- Finish all beginner and intermediate exercises before advancing
-- Attempt advanced exercises for deeper understanding
-- Use assessment tools to validate your progress
+| Aspect | Before | After |
+|--------|--------|-------|
+| Exercise Length | 191+ lines | ~30 lines |
+| Module Names | `m1-foundation` | `m1` |
+| Directory Structure | Complex dual-zone | Single `exercises/` |
+| Visual Markers | Buried in text | Clear ★ START HERE ★ |
+| Cognitive Load | High (extensive guidance) | Low (essential hints) |
+| Time to Start Coding | 5-10 minutes reading | Immediate |
+
+## 🎓 Progressive Complexity
+
+- **m1-m2**: Beginner (basic concepts, simple syntax)
+- **m3-m4**: Intermediate (control flow, data structures)  
+- **m5-m6**: Advanced (functions, SIMD)
+- **m7-m8**: Expert (optimization, capstone projects)
+
+## ✅ Success Criteria Met
+
+- [x] Exercise files under 30 lines with clear visual markers
+- [x] Simplified module structure (m1/, m2/, etc.)
+- [x] Students can immediately start coding after copying files
+- [x] Progressive complexity maintained across modules
+- [x] All exercises follow consistent template standards
+- [x] Removed YAML metadata and complex headers
+- [x] Copy-and-edit workflow implemented
 
 ---
 
-**Ready to begin?** Start with [Module 1: Foundation & Setup](m1-foundation/) to establish your development environment and write your first ARM assembly program.
+**Ready to test?** Start with [`m1/exercises/hello.s`](m1/exercises/hello.s)
