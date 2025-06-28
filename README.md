@@ -32,16 +32,16 @@ cd ARM-AArch64-Assembly-Language-University
 ### Step 2: Run Setup Script
 ```bash
 # This handles everything: git workflow, tools, environment
-./setup.sh
+./tools/setup/setup.sh
 ```
 
 ### Step 3: Start Coding!
 ```bash
 # Go to Module 1
-cd modules/m1/exercises
+cd modules/m1-foundation/exercises
 
 # Copy the first exercise
-cp hello.s my-hello.s
+cp 1.1-hello-beginner.s my-hello.s
 
 # Edit the file and look for: ★ START HERE ★
 # Build your code
@@ -95,7 +95,7 @@ Each exercise follows this pattern:
 - **Immediate feedback** through build and test cycle
 
 **Example exercise workflow:**
-1. Copy exercise file: `cp hello.s my-hello.s`
+1. Copy exercise file: `cp 1.1-hello-beginner.s my-hello.s`
 2. Edit file and find: `★ START HERE ★`
 3. Write your code following the guidance comments
 4. Build: `./build.sh my-hello.s`
@@ -124,7 +124,7 @@ Each exercise follows this pattern:
 qemu-aarch64-static ./<program_name>
 
 # Example workflow
-cp hello.s my-hello.s
+cp 1.1-hello-beginner.s my-hello.s
 ./build.sh my-hello.s
 qemu-aarch64-static ./my-hello
 ```
@@ -168,19 +168,8 @@ qemu-aarch64-static ./my-hello
 **Ready to start your ARM assembly journey?**
 
 1. **Fork this repository**
-2. **Run the setup script**: `./setup.sh`
-3. **Start coding**: `cd modules/m1/exercises`
-
-## 📚 Documentation
-
-For detailed information, see our comprehensive documentation:
-
-- **[Course Overview](docs/COURSE_OVERVIEW.md)** - Complete course structure and philosophy
-- **[Getting Started Guide](docs/GETTING_STARTED.md)** - Detailed setup and first steps
-- **[Student Documentation](docs/student/STUDENT-DOCUMENTATION-INDEX.md)** - All student resources
-- **[Troubleshooting](docs/student/STUDENT-TROUBLESHOOTING.md)** - Common issues and solutions
-- **[Advanced Features](docs/advanced/)** - Complex topics and optimizations
-- **[Instructor Guide](docs/instructor/)** - Teaching resources and assessments
+2. **Run the setup script**: `./tools/setup/setup.sh`
+3. **Start coding**: `cd modules/m1-foundation/exercises`
 
 ## 📞 Support
 
