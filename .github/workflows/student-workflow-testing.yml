@@ -1,0 +1,355 @@
+name: Student Workflow Testing
+
+# Trigger on testing branches and pull requests
+on:
+  push:
+    branches:
+      - 'testing/**'
+      - 'improvement/**'
+  pull_request:
+    branches:
+      - master
+      - main
+    paths:
+      - 'setup.sh'
+      - 'build.sh'
+      - 'update-course.sh'
+      - 'docs/tools/setup/**'
+      - 'testing/**'
+  workflow_dispatch:
+    inputs:
+      test_scenarios:
+        description: 'Test scenarios to run (comma-separated)'
+        required: false
+        default: 'fresh-student,build-workflow,update-workflow'
+      platform_matrix:
+        description: 'Platforms to test (ubuntu,fedora)'
+        required: false
+        default: 'ubuntu,fedora'
+
+env:
+  TEST_SESSION_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+  TESTING_BRANCH_PREFIX: testing/
+
+jobs:
+  # Safety check to prevent running on master
+  safety-check:
+    runs-on: ubuntu-latest
+    outputs:
+      is_safe_branch: ${{ steps.check.outputs.is_safe }}
+    steps:
+      - name: Check branch safety
+        id: check
+        run: |
+          if [[ "${{ github.ref_name }}" == "master" || "${{ github.ref_name }}" == "main" ]]; then
+            echo "is_safe=false" >> $GITHUB_OUTPUT
+            echo "::error::Cannot run workflow tests on master/main branch"
+            exit 1
+          else
+            echo "is_safe=true" >> $GITHUB_OUTPUT
+          fi
+
+  # Lint and validate testing scripts
+  validate-testing-scripts:
+    needs: safety-check
+    if: needs.safety-check.outputs.is_safe_branch == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Validate shell scripts
+        run: |
+          # Install shellcheck
+          sudo apt-get update
+          sudo apt-get install -y shellcheck
+          
+          # Check all testing scripts
+          find testing/scripts -name "*.sh" -exec shellcheck {} \;
+          
+          # Check main workflow scripts
+          shellcheck setup.sh build.sh update-course.sh
+
+      - name: Validate Docker files
+        run: |
+          # Install hadolint
+          wget -O hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
+          chmod +x hadolint
+          
+          # Check Dockerfiles
+          find testing/docker -name "Dockerfile*" -exec ./hadolint {} \;
+
+  # Test on multiple platforms
+  test-workflow-matrix:
+    needs: [safety-check, validate-testing-scripts]
+    if: needs.safety-check.outputs.is_safe_branch == 'true'
+    strategy:
+      matrix:
+        platform: [ubuntu-22.04, ubuntu-20.04]
+        scenario: [fresh-student, build-workflow, update-workflow]
+      fail-fast: false
+    runs-on: ${{ matrix.platform }}
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Need full history for Git operations
+      
+      - name: Set up testing environment
+        run: |
+          # Install required packages
+          sudo apt-get update
+          sudo apt-get install -y \
+            gcc-aarch64-linux-gnu \
+            qemu-user-static \
+            rsync \
+            bc
+          
+          # Set up Git configuration
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+          # Create testing branch if needed
+          if ! git show-ref --verify --quiet refs/heads/testing/ci-validation; then
+            git checkout -b testing/ci-validation
+          else
+            git checkout testing/ci-validation
+          fi
+
+      - name: Initialize testing infrastructure
+        run: |
+          chmod +x testing/scripts/*.sh
+          ./testing/scripts/setup-test-env.sh --init
+
+      - name: Run workflow tests
+        id: test
+        run: |
+          # Run specific scenario
+          ./testing/scripts/workflow-tester.sh --scenario ${{ matrix.scenario }}
+        continue-on-error: true
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ matrix.platform }}-${{ matrix.scenario }}
+          path: |
+            testing/reports/automated/
+            testing/reports/manual/
+          retention-days: 30
+
+      - name: Report test status
+        if: always()
+        run: |
+          if [[ "${{ steps.test.outcome }}" == "success" ]]; then
+            echo "✅ ${{ matrix.scenario }} test passed on ${{ matrix.platform }}"
+          else
+            echo "❌ ${{ matrix.scenario }} test failed on ${{ matrix.platform }}"
+            exit 1
+          fi
+
+  # Docker-based cross-platform testing
+  test-docker-platforms:
+    needs: [safety-check, validate-testing-scripts]
+    if: needs.safety-check.outputs.is_safe_branch == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        docker_platform: [ubuntu, fedora]
+      fail-fast: false
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build testing image
+        run: |
+          cd testing/docker
+          docker build -t arm-course-test:${{ matrix.docker_platform }} \
+            -f Dockerfile.${{ matrix.docker_platform }} .
+
+      - name: Run Docker-based tests
+        run: |
+          # Create test container
+          docker run --rm \
+            -v $(pwd):/workspace:ro \
+            -v /tmp/test-results:/test-results \
+            -e TEST_PLATFORM=${{ matrix.docker_platform }} \
+            -e TEST_MODE=docker \
+            --workdir /workspace \
+            arm-course-test:${{ matrix.docker_platform }} \
+            bash -c "
+              git config --global user.name 'Docker Test'
+              git config --global user.email 'test@docker.com'
+              git checkout -b testing/docker-validation
+              chmod +x testing/scripts/*.sh
+              ./testing/scripts/workflow-tester.sh --all
+            "
+
+      - name: Upload Docker test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: docker-test-results-${{ matrix.docker_platform }}
+          path: /tmp/test-results/
+          retention-days: 30
+
+  # Performance and timing tests
+  performance-tests:
+    needs: [safety-check, validate-testing-scripts]
+    if: needs.safety-check.outputs.is_safe_branch == 'true'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y time bc
+          git config --global user.name "Performance Test"
+          git config --global user.email "perf@test.com"
+          git checkout -b testing/performance-validation
+
+      - name: Run performance tests
+        run: |
+          chmod +x testing/scripts/*.sh
+          
+          # Time the setup process
+          echo "Testing setup.sh performance..."
+          /usr/bin/time -v ./setup.sh --test-mode 2>&1 | tee setup-performance.log
+          
+          # Extract timing information
+          setup_time=$(grep "Elapsed (wall clock) time" setup-performance.log | awk '{print $8}')
+          echo "Setup completed in: $setup_time"
+          
+          # Check if under 5-minute goal
+          if [[ "$setup_time" =~ ^0:0[0-4]: ]]; then
+            echo "✅ Setup time goal met (under 5 minutes)"
+          else
+            echo "⚠️ Setup time exceeds 5-minute goal"
+          fi
+
+      - name: Upload performance results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-test-results
+          path: |
+            setup-performance.log
+          retention-days: 30
+
+  # Aggregate results and create summary
+  test-summary:
+    needs: [test-workflow-matrix, test-docker-platforms, performance-tests]
+    if: always() && needs.safety-check.outputs.is_safe_branch == 'true'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all test artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: test-artifacts/
+
+      - name: Generate test summary
+        run: |
+          echo "# Student Workflow Testing Summary" > test-summary.md
+          echo "" >> test-summary.md
+          echo "**Test Session:** ${{ env.TEST_SESSION_ID }}" >> test-summary.md
+          echo "**Branch:** ${{ github.ref_name }}" >> test-summary.md
+          echo "**Commit:** ${{ github.sha }}" >> test-summary.md
+          echo "**Timestamp:** $(date -u)" >> test-summary.md
+          echo "" >> test-summary.md
+          
+          # Count test results
+          total_tests=0
+          passed_tests=0
+          failed_tests=0
+          
+          # Analyze matrix test results
+          echo "## Test Results by Platform" >> test-summary.md
+          echo "" >> test-summary.md
+          
+          for result_dir in test-artifacts/test-results-*; do
+            if [[ -d "$result_dir" ]]; then
+              platform=$(basename "$result_dir" | sed 's/test-results-//')
+              echo "### $platform" >> test-summary.md
+              
+              if find "$result_dir" -name "*.json" -exec grep -l '"success_rate"' {} \; | head -1 | xargs cat 2>/dev/null; then
+                echo "- Status: ✅ PASSED" >> test-summary.md
+                ((passed_tests++))
+              else
+                echo "- Status: ❌ FAILED" >> test-summary.md
+                ((failed_tests++))
+              fi
+              ((total_tests++))
+              echo "" >> test-summary.md
+            fi
+          done
+          
+          # Overall summary
+          echo "## Overall Results" >> test-summary.md
+          echo "" >> test-summary.md
+          echo "- **Total Tests:** $total_tests" >> test-summary.md
+          echo "- **Passed:** $passed_tests" >> test-summary.md
+          echo "- **Failed:** $failed_tests" >> test-summary.md
+          
+          if [[ $failed_tests -eq 0 ]]; then
+            echo "- **Status:** ✅ ALL TESTS PASSED" >> test-summary.md
+          else
+            echo "- **Status:** ❌ SOME TESTS FAILED" >> test-summary.md
+          fi
+          
+          echo "" >> test-summary.md
+          echo "## Recommendations" >> test-summary.md
+          echo "" >> test-summary.md
+          
+          if [[ $failed_tests -gt 0 ]]; then
+            echo "- Review failed test artifacts for detailed error information" >> test-summary.md
+            echo "- Address identified issues before merging to master" >> test-summary.md
+            echo "- Consider running additional manual testing" >> test-summary.md
+          else
+            echo "- All automated tests passed successfully" >> test-summary.md
+            echo "- Consider manual testing for user experience validation" >> test-summary.md
+            echo "- Ready for review and potential merge to master" >> test-summary.md
+          fi
+
+      - name: Upload test summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-summary
+          path: test-summary.md
+          retention-days: 90
+
+      - name: Comment on PR (if applicable)
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = fs.readFileSync('test-summary.md', 'utf8');
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: summary
+            });
+
+      - name: Set job status
+        run: |
+          if [[ ${{ needs.test-workflow-matrix.result }} == "success" && 
+                ${{ needs.test-docker-platforms.result }} == "success" && 
+                ${{ needs.performance-tests.result }} == "success" ]]; then
+            echo "✅ All testing jobs completed successfully"
+          else
+            echo "❌ Some testing jobs failed"
+            exit 1
+          fi

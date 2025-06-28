@@ -1,0 +1,91 @@
+version: '3.8'
+
+services:
+  # Ubuntu testing environment
+  ubuntu-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    container_name: arm-course-test-ubuntu
+    volumes:
+      - ../..:/home/testuser/workspace:ro  # Mount repo as read-only
+      - test-results:/home/testuser/test-results
+    environment:
+      - TEST_PLATFORM=ubuntu
+      - TEST_MODE=docker
+    working_dir: /home/testuser/workspace
+    command: tail -f /dev/null  # Keep container running
+    networks:
+      - test-network
+
+  # Fedora testing environment
+  fedora-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.fedora
+    container_name: arm-course-test-fedora
+    volumes:
+      - ../..:/home/testuser/workspace:ro
+      - test-results:/home/testuser/test-results
+    environment:
+      - TEST_PLATFORM=fedora
+      - TEST_MODE=docker
+    working_dir: /home/testuser/workspace
+    command: tail -f /dev/null
+    networks:
+      - test-network
+
+  # Test orchestrator
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test-runner
+    container_name: arm-course-test-runner
+    volumes:
+      - ../..:/workspace:ro
+      - test-results:/test-results
+      - /var/run/docker.sock:/var/run/docker.sock  # For Docker-in-Docker
+    environment:
+      - TEST_MODE=orchestrator
+    depends_on:
+      - ubuntu-test
+      - fedora-test
+    networks:
+      - test-network
+    command: /workspace/testing/scripts/docker-test-orchestrator.sh
+
+volumes:
+  test-results:
+    driver: local
+
+networks:
+  test-network:
+    driver: bridge
+
+# Testing profiles for different scenarios
+x-test-profiles:
+  # Quick smoke test
+  smoke: &smoke-test
+    services:
+      - ubuntu-test
+    environment:
+      - TEST_SCENARIOS=fresh-student
+      - TEST_TIMEOUT=300
+
+  # Full compatibility test
+  full: &full-test
+    services:
+      - ubuntu-test
+      - fedora-test
+    environment:
+      - TEST_SCENARIOS=fresh-student,update-workflow,cross-platform
+      - TEST_TIMEOUT=1800
+
+  # Interactive testing
+  interactive: &interactive-test
+    services:
+      - ubuntu-test
+    environment:
+      - TEST_MODE=interactive
+    stdin_open: true
+    tty: true

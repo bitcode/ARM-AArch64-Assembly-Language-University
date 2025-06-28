@@ -1,0 +1,62 @@
+# ARM Assembly Course Testing - Ubuntu Environment
+FROM ubuntu:22.04
+
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install required packages for ARM development and testing
+RUN apt-get update && apt-get install -y \
+    # ARM toolchain
+    gcc-aarch64-linux-gnu \
+    qemu-user-static \
+    # Build tools
+    build-essential \
+    make \
+    # Git and development tools
+    git \
+    curl \
+    wget \
+    rsync \
+    # Testing utilities
+    timeout \
+    tree \
+    # Text processing
+    sed \
+    awk \
+    grep \
+    # Shell utilities
+    bash \
+    zsh \
+    # Cleanup
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create test user (non-root for realistic testing)
+RUN useradd -m -s /bin/bash testuser && \
+    echo "testuser:testuser" | chpasswd && \
+    usermod -aG sudo testuser
+
+# Set up Git configuration for testing
+USER testuser
+WORKDIR /home/testuser
+
+RUN git config --global user.name "Test Student" && \
+    git config --global user.email "test@example.com" && \
+    git config --global init.defaultBranch main
+
+# Create workspace directory
+RUN mkdir -p /home/testuser/workspace
+
+# Copy test scripts (will be mounted at runtime)
+VOLUME ["/home/testuser/workspace"]
+
+# Set working directory
+WORKDIR /home/testuser/workspace
+
+# Default command
+CMD ["/bin/bash"]
+
+# Labels for identification
+LABEL maintainer="ARM Assembly Course"
+LABEL description="Ubuntu testing environment for ARM assembly course"
+LABEL version="1.0"
